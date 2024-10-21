@@ -14,7 +14,11 @@
 </head>
 <body>
 <main>
-  这里提供输入博客的界面
+    <form method="post" action="add-blog">
+        <textarea rows="8" cols="25" name="title">输入博客标题</textarea>
+        <textarea rows="8" cols="50" name="content">输入该博客的内容</textarea>
+        <button type="submit">提交</button>
+    </form>
 </main>
 </body>
 </html>
