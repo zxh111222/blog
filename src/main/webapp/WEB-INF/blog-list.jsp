@@ -27,7 +27,7 @@
             <td>${blog.title}</td>
             <td>${blog.content}</td>
             <td>
-                <a href="#">修改</a>
+                <a href="update-blog?id=${blog.id}">修改</a>
                 <a href="delete-blog?id=${blog.id}">删除</a>
             </td>
         </tr>
