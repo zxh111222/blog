@@ -13,6 +13,7 @@
     <title>博客列表 - Blog</title>
 </head>
 <body>
+<p><a href="#">添加博客</a></p>
 <table>
     <tr>
         <th>ID</th>
