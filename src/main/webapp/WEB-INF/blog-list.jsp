@@ -13,7 +13,15 @@
     <title>博客列表 - Blog</title>
 </head>
 <body>
+
 <p><a href="<%= request.getContextPath() %>/add-blog">添加博客</a></p>
+<form action="blog-list" method="get">
+    <input type="text" name="title" value="${searchString}"/>
+    <button type="submit">搜素</button>
+</form>
+<a href="blog-list">清除搜索条件</a>
+<hr>
+
 <table>
     <tr>
         <th>ID</th>
@@ -33,6 +41,16 @@
         </tr>
     </c:forEach>
 </table>
+<nav>
+    <ul>
+        <li>
+            <a href="?page=${page - 1}${searchString != null ? "&title=".concat(searchString) : ""}">Previous</a>
+        </li>
+        <li>
+            <a href="?page=${page + 1}${searchString != null ? "&title=".concat(searchString) : ""}">Next</a>
+        </li>
+    </ul>
+</nav>
 
 </body>
 </html>

@@ -19,14 +19,59 @@ public class BlogListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Blog> blogs = new ArrayList<>();
-        // 连接数据库
+
+        int page = 1;
+        String pageFromRequest = req.getParameter("page");
+        if (pageFromRequest != null) {
+            try {
+                page = Integer.parseInt(pageFromRequest);
+            } catch (NumberFormatException e) {
+                System.out.println("非法的 page 值（非整数）：" + pageFromRequest);
+            }
+            if (page < 1) {
+                System.out.println("非法的 page 值（小于 1）：" + pageFromRequest);
+                page = 1;
+            }
+        }
+
+        int count = 10;
+        String countFromRequest = req.getParameter("count");
+        if (countFromRequest != null) {
+            try {
+                count = Integer.parseInt(countFromRequest);
+            } catch (NumberFormatException e) {
+                System.out.println("非法的 count 值（非整数）：" + countFromRequest);
+            }
+            if (count > 50) {
+                System.out.println("非法的 count 值（大于 50）：" + countFromRequest);
+                count = 50;
+            }
+        }
+
+        int offset = (page - 1) * count;
+
+        String sql = "select id, title, content from blog order by id desc limit ?, ?";
+        String searchString = req.getParameter("title");
+        if (searchString != null && !searchString.trim().isEmpty()) {
+            sql = "select id, title, content from blog where title like ? order by id desc limit ?, ?";
+        }
+
         Connection connection = MyDBUtil.getConnection();
-        // 发送查询语句，
-        String sql = "select id, title, content from blog order by id desc";
 
         try (
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
+
+            if (searchString != null && !searchString.trim().isEmpty()) {
+                preparedStatement.setString(1, "%" + searchString + "%");
+                preparedStatement.setInt(2, offset);
+                preparedStatement.setInt(3, count);
+                req.setAttribute("searchString", searchString);
+            } else {
+                preparedStatement.setInt(1, offset);
+                preparedStatement.setInt(2, count);
+            }
+
             // 获取结果
             ResultSet rs = preparedStatement.executeQuery();
             // 构造出Blog实例
@@ -44,6 +89,8 @@ public class BlogListServlet extends HttpServlet {
         }
 
         req.setAttribute("blogs", blogs);
+
+        req.setAttribute("page", page);
 
         req.getRequestDispatcher("/WEB-INF/blog-list.jsp").forward(req, resp);
     }
