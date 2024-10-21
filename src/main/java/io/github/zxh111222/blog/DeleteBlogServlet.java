@@ -1,0 +1,39 @@
+package io.github.zxh111222.blog;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+@WebServlet("/delete-blog")
+public class DeleteBlogServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+
+        String id = req.getParameter("id");
+
+        Connection connection = MyDBUtil.getConnection();
+        String sql = "DELETE FROM blog WHERE id = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+
+                resp.sendRedirect(req.getContextPath() + "/blog-list");
+            } else {
+                resp.getWriter().println("删除博客失败");
+            }
+        } catch (SQLException e) {
+            resp.getWriter().println("删除博客时发生错误: " + e.getMessage());
+        }
+    }
+}

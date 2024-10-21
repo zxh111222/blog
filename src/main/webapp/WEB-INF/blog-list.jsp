@@ -19,12 +19,17 @@
         <th>ID</th>
         <th>Title</th>
         <th>Content</th>
+        <th>Action</th>
     </tr>
     <c:forEach items="${blogs}" var="blog">
         <tr>
             <td>${blog.id}</td>
             <td>${blog.title}</td>
             <td>${blog.content}</td>
+            <td>
+                <a href="#">修改</a>
+                <a href="delete-blog?id=${blog.id}">删除</a>
+            </td>
         </tr>
     </c:forEach>
 </table>
