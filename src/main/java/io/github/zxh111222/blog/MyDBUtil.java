@@ -13,7 +13,7 @@ public class MyDBUtil {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/home", "root", "123456");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/home", "root", "Lmysqldlmm@126");
             System.out.println("Connected to database");
         } catch (Exception e) {
             throw new RuntimeException(e);
