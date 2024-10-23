@@ -5,6 +5,6 @@
   <title>Blog - 我的博客</title>
 </head>
 <body>
-<a href="blank.jsp">跳转到博客列表页面</a>
+<a href="admin">跳转到博客列表页面</a>
 </body>
 </html>

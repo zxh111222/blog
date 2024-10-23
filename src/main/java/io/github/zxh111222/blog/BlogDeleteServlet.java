@@ -11,8 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@WebServlet("/delete-blog")
-public class DeleteBlogServlet extends HttpServlet {
+@WebServlet("/admin-delete-blog")
+public class BlogDeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
@@ -28,7 +28,7 @@ public class DeleteBlogServlet extends HttpServlet {
 
             if (affectedRows > 0) {
 
-                resp.sendRedirect(req.getContextPath() + "/blog-list");
+                resp.sendRedirect(req.getContextPath() + "/admin-blog-list");
             } else {
                 resp.getWriter().println("删除博客失败");
             }

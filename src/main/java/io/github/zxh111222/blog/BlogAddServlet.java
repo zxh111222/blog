@@ -11,11 +11,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@WebServlet("/add-blog")
+@WebServlet("/admin-add-blog")
 public class BlogAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/add-blog.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/add-blog.jsp").forward(req, resp);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class BlogAddServlet extends HttpServlet {
 
             if (affectedRows > 0) {
                 // 跳转
-                resp.sendRedirect(req.getContextPath() + "/blog-list");
+                resp.sendRedirect(req.getContextPath() + "/admin-blog-list");
             } else {
                 resp.getWriter().println("添加博客失败");
             }

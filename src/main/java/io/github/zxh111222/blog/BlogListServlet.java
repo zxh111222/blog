@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/blog-list")
+@WebServlet("/admin-blog-list")
 public class BlogListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -93,6 +93,6 @@ public class BlogListServlet extends HttpServlet {
 
         req.setAttribute("page", page);
 
-        req.getRequestDispatcher("/blog-list.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/blog-list.jsp").forward(req, resp);
     }
 }

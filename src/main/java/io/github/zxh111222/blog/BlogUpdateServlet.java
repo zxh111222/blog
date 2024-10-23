@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet("/update-blog")
+@WebServlet("/admin-update-blog")
 public class BlogUpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,7 +30,7 @@ public class BlogUpdateServlet extends HttpServlet {
                 Blog blog = new Blog(Integer.parseInt(id), rs.getString("title"), rs.getString("content"), rs.getString("type"));
                 // 响应
                 req.setAttribute("blog", blog);
-                req.getRequestDispatcher("/update-blog.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/update-blog.jsp").forward(req, resp);
             } else {
                 resp.setContentType("text/html");
                 resp.getWriter().println("id="+ id +" 的博客不存在");
@@ -63,7 +63,7 @@ public class BlogUpdateServlet extends HttpServlet {
             int affectedRows = pstmt.executeUpdate();
 
             if (affectedRows > 0) {
-                resp.sendRedirect(req.getContextPath() + "/blog-list");
+                resp.sendRedirect(req.getContextPath() + "/admin-blog-list");
             } else {
                 resp.getWriter().println("修改博客失败");
             }
