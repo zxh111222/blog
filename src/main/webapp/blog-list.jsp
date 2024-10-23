@@ -83,7 +83,7 @@
                   <td>${blog.content}</td>
                   <td><span class="tag tag-success">${blog.type}</span></td>
                   <td style="display: flex;">
-                    <a href="#" type="submit" class="btn btn-block btn-secondary btn-sm" style="width: 60px; height: 35px; margin: 0 5px">修改</a>
+                    <a href="update-blog?id=${blog.id}" type="submit" class="btn btn-block btn-secondary btn-sm" style="width: 60px; height: 35px; margin: 0 5px">修改</a>
                     <a href="delete-blog?id=${blog.id}" type="submit" class="btn btn-block btn-secondary btn-sm" style="width: 60px; height: 35px; margin: 0 5px">删除</a>
                   </td>
                 </tr>
