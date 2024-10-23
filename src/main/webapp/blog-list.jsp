@@ -83,8 +83,8 @@
                   <td>${blog.content}</td>
                   <td><span class="tag tag-success">${blog.type}</span></td>
                   <td style="display: flex;">
-                    <button href="#" type="submit" class="btn btn-block btn-secondary btn-sm" style="width: 60px; height: 35px; margin: 0 5px">修改</button>
-                    <button href="#" type="submit" class="btn btn-block btn-secondary btn-sm" style="width: 60px; height: 35px; margin: 0 5px">删除</button>
+                    <a href="#" type="submit" class="btn btn-block btn-secondary btn-sm" style="width: 60px; height: 35px; margin: 0 5px">修改</a>
+                    <a href="delete-blog?id=${blog.id}" type="submit" class="btn btn-block btn-secondary btn-sm" style="width: 60px; height: 35px; margin: 0 5px">删除</a>
                   </td>
                 </tr>
               </c:forEach>
@@ -102,7 +102,7 @@
           <div class="col-sm-12 col-md-7">
             <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
               <ul class="pagination">
-                <li class="paginate_button page-item previous disabled" id="example2_previous"><a href="?page=${page - 1}${searchString != null ? "&title=".concat(searchString) : ""}"
+                <li class="paginate_button page-item previous" id="example2_previous"><a href="?page=${page - 1}${searchString != null ? "&title=".concat(searchString) : ""}"
                                                                                                   aria-controls="example2"
                                                                                                   data-dt-idx="0"
                                                                                                   tabindex="0"
