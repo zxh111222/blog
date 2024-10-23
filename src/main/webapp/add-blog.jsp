@@ -47,8 +47,8 @@
               <textarea id="content" class="form-control" rows="4" name="content"></textarea>
             </div>
             <div class="form-group">
-              <label for="blog-type">博客类型</label>
-              <select id="blog-type" class="form-control custom-select" name="blog-type">
+              <label for="type">博客类型</label>
+              <select id="type" class="form-control custom-select" name="type">
                 <option value="技术" selected>技术</option>
                 <option value="生活">生活</option>
                 <option value="思考">思考</option>

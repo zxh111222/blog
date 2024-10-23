@@ -20,7 +20,7 @@ public class BlogAddServlet extends HttpServlet {
         System.out.println("博客标题：" + title);
         String content = req.getParameter("content");
         System.out.println("博客内容：" + content);
-        String type = req.getParameter("blog-type");
+        String type = req.getParameter("type");
         System.out.println("博客类型：" + type);
 
         // todo: 1. 接收用户数据、2.验证数据、3.处理数据（保存数据库）4.响应内容 ...
