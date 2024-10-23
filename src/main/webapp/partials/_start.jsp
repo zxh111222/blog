@@ -202,7 +202,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="add-blog.jsp" class="nav-link">
+                        <a href="blog-list.jsp" class="nav-link">
                             <i class="nav-icon far fa-image"></i>
                             <p>
                                 博客管理
