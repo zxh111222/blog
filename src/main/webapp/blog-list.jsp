@@ -6,7 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page isELIgnored ="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ include file="partials/_start.jsp" %>
 
 
@@ -39,18 +40,18 @@
         <h3 class="card-title">博客列表</h3>
 
         <div class="card-tools">
-          <div class="input-group input-group-sm" style="width: 380px;">
-            <input type="text" name="title" class="form-control float-right" placeholder="Search">
+          <form action="blog-list" method="get" class="input-group input-group-sm" style="width: 380px;">
+            <input type="text" name="title"  value="${searchString}" class="form-control float-right" placeholder="Search">
 
             <div class="input-group-append">
               <button type="submit" class="btn btn-default">
                 <i class="fas fa-search"></i>
               </button>
-              <button href="#" type="submit" class="btn btn-default" style="width: 100px; margin: 0 15px;">
+              <button href="<%= request.getContextPath() %>/add-blog" type="submit" class="btn btn-default" style="width: 100px; margin: 0 15px;">
                 添加博客
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
@@ -101,7 +102,7 @@
           <div class="col-sm-12 col-md-7">
             <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
               <ul class="pagination">
-                <li class="paginate_button page-item previous disabled" id="example2_previous"><a href="#"
+                <li class="paginate_button page-item previous disabled" id="example2_previous"><a href="?page=${page - 1}${searchString != null ? "&title=".concat(searchString) : ""}"
                                                                                                   aria-controls="example2"
                                                                                                   data-dt-idx="0"
                                                                                                   tabindex="0"
@@ -119,7 +120,7 @@
                                                           tabindex="0" class="page-link">5</a></li>
                 <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="6"
                                                           tabindex="0" class="page-link">6</a></li>
-                <li class="paginate_button page-item next" id="example2_next"><a href="#" aria-controls="example2"
+                <li class="paginate_button page-item next" id="example2_next"><a href="?page=${page + 1}${searchString != null ? "&title=".concat(searchString) : ""}" aria-controls="example2"
                                                                                  data-dt-idx="7" tabindex="0"
                                                                                  class="page-link">Next</a></li>
               </ul>

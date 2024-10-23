@@ -6,16 +6,27 @@ public class Blog {
     int id;
     String title;
     String content;
+    String type;
 
-    public Blog(String title, String content) {
+    public Blog(String title, String content, String type) {
         this.title = title;
         this.content = content;
+        this.type = type;
     }
 
-    public Blog(int id, String title, String content) {
+    public Blog(int id, String title, String content, String type) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getContent() {
