@@ -15,23 +15,27 @@ import java.sql.SQLException;
 public class AddBlogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/add-blog.jsp").forward(req, resp);
+        req.getRequestDispatcher("/add-blog.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
 
+        // todo: 1. 接收用户数据、2.验证数据、3.处理数据（保存数据库）4.响应内容 ...
+
         String title = req.getParameter("title");
         String content = req.getParameter("content");
+        String type = req.getParameter("type");
 
         Connection connection = MyDBUtil.getConnection();
-        String sql = "INSERT INTO blog (title, content) VALUES (?, ?)";
+        String sql = "INSERT INTO blog (title, content, type) VALUES (?, ?, ?)";
         PreparedStatement pstmt = null;
         try {
             pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, title);
             pstmt.setString(2, content);
+            pstmt.setString(3, type);
 
             int affectedRows = pstmt.executeUpdate();
 

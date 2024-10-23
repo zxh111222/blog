@@ -47,9 +47,9 @@
               <button type="submit" class="btn btn-default">
                 <i class="fas fa-search"></i>
               </button>
-              <button href="<%= request.getContextPath() %>/add-blog" type="submit" class="btn btn-default" style="width: 100px; margin: 0 15px;">
+              <a href="<%= request.getContextPath() %>/add-blog" class="btn btn-default" style="width: 100px; margin: 0 15px;">
                 添加博客
-              </button>
+              </a>
             </div>
           </form>
         </div>
@@ -82,9 +82,9 @@
                   <td>${blog.title}</td>
                   <td>${blog.content}</td>
                   <td><span class="tag tag-success">${blog.type}</span></td>
-                  <td>
-                    <button href="#" type="submit" class="btn btn-block btn-secondary btn-sm">修改</button>
-                    <button href="#" type="submit" class="btn btn-block btn-secondary btn-sm">删除</button>
+                  <td style="display: flex;">
+                    <button href="#" type="submit" class="btn btn-block btn-secondary btn-sm" style="width: 60px; height: 35px; margin: 0 5px">修改</button>
+                    <button href="#" type="submit" class="btn btn-block btn-secondary btn-sm" style="width: 60px; height: 35px; margin: 0 5px">删除</button>
                   </td>
                 </tr>
               </c:forEach>

@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="card-body">
-          <form id="add-blog-form" method="post" action="add-blog1">
+          <form id="add-blog-form" method="post" action="add-blog">
             <div class="form-group">
               <label for="title">博客标题</label>
               <input type="text" id="title" class="form-control" name="title" placeholder="请输入博客标题">
