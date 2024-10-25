@@ -46,7 +46,7 @@
           </div>
         </div>
         <div class="card-body">
-          <form id="add-blog-form" method="post" action="admin-add-blog">
+          <form id="add-blog-form" method="post" action="admin-add-blog" enctype="multipart/form-data">
             <div class="form-group">
               <label for="title">博客标题</label>
               <input type="text" id="title" class="form-control" name="title" placeholder="请输入博客标题">
@@ -63,7 +63,10 @@
                 <option value="思考">思考</option>
               </select>
             </div>
-
+            <div class="form-group">
+              <label for="cover">博客封面图</label>
+              <input type="file" class="d-block" id="cover" name="cover" accept="image/*">
+            </div>
           </form>
         </div>
         <div class="card-footer">

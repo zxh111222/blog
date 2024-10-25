@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="card-body">
-        <form id="update-blog-form" method="post" action="admin-update-blog">
+        <form id="update-blog-form" method="post" action="admin-update-blog" enctype="multipart/form-data">
           <input type="hidden" name="id" value="${blog.id}">
           <div class="form-group">
             <label for="title">博客标题</label>
@@ -63,7 +63,10 @@
               <option value="思考">思考</option>
             </select>
           </div>
-
+          <div class="form-group">
+            <label for="cover">博客封面图</label>
+            <input type="file" class="d-block" id="cover" name="cover" accept="image/*">
+          </div>
         </form>
       </div>
       <div class="card-footer">

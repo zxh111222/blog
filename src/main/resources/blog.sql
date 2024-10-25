@@ -24,3 +24,9 @@ values ("我的第一篇博客", "第一篇博客的正文内容，待补充"),
 alter table blog
     add type varchar(11) not null comment '博客类型';
 
+-- 增加`博客封面`字段
+alter table blog
+    add cover varchar(256) null comment '博客封面图';
+
+
+
