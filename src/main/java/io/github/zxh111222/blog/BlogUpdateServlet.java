@@ -30,7 +30,7 @@ public class BlogUpdateServlet extends HttpServlet {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                Blog blog = new Blog(Integer.parseInt(id), rs.getString("title"), rs.getString("content"), rs.getString("type"));
+                Blog blog = new Blog(Integer.parseInt(id), rs.getString("title"), rs.getString("content"), rs.getString("type"), rs.getString("cover"));
                 // 响应
                 req.setAttribute("blog", blog);
                 req.getRequestDispatcher("/WEB-INF/update-blog.jsp").forward(req, resp);

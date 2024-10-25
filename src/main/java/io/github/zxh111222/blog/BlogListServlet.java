@@ -50,10 +50,10 @@ public class BlogListServlet extends HttpServlet {
 
         int offset = (page - 1) * count;
 
-        String sql = "select id, title, content, type from blog order by id desc limit ?, ?";
+        String sql = "select id, title, content, type, cover from blog order by id desc limit ?, ?";
         String searchString = req.getParameter("title");
         if (searchString != null && !searchString.trim().isEmpty()) {
-            sql = "select id, title, content, type from blog where title like ? order by id desc limit ?, ?";
+            sql = "select id, title, content, type, cover from blog where title like ? order by id desc limit ?, ?";
         }
 
         Connection connection = MyDBUtil.getConnection();
@@ -80,8 +80,9 @@ public class BlogListServlet extends HttpServlet {
                 String title = rs.getString("title");
                 String content = rs.getString("content");
                 String type = rs.getString("type");
+                String cover = rs.getString("cover");
                 // 构造出Blog实例
-                Blog blog = new Blog(id, title, content, type);
+                Blog blog = new Blog(id, title, content, type, cover);
                 // 添加到 blogs
                 blogs.add(blog);
             }

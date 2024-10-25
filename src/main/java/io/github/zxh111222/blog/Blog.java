@@ -7,6 +7,7 @@ public class Blog {
     String title;
     String content;
     String type;
+    String cover;
 
     public Blog(String title, String content, String type) {
         this.title = title;
@@ -14,11 +15,19 @@ public class Blog {
         this.type = type;
     }
 
-    public Blog(int id, String title, String content, String type) {
+    public Blog(int id, String title, String content, String type, String cover) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.type = type;
+        this.cover = cover;
+    }
+
+    public Blog(String title, String content, String type, String cover) {
+        this.title = title;
+        this.content = content;
+        this.type = type;
+        this.cover = cover;
     }
 
     public String getType() {
@@ -53,12 +62,22 @@ public class Blog {
         this.id = id;
     }
 
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
     @Override
     public String toString() {
         return "Blog{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", type='" + type + '\'' +
+                ", cover='" + cover + '\'' +
                 '}';
     }
 
@@ -67,11 +86,11 @@ public class Blog {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Blog blog = (Blog) o;
-        return id == blog.id && Objects.equals(title, blog.title) && Objects.equals(content, blog.content);
+        return id == blog.id && Objects.equals(title, blog.title) && Objects.equals(content, blog.content) && Objects.equals(type, blog.type) && Objects.equals(cover, blog.cover);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, content);
+        return Objects.hash(id, title, content, type, cover);
     }
 }
