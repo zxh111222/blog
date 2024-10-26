@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/admin-blog-list")
-public class BlogListServlet extends HttpServlet {
+public class BlogAdminListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Blog> blogs = new ArrayList<>();
@@ -94,6 +94,6 @@ public class BlogListServlet extends HttpServlet {
 
         req.setAttribute("page", page);
 
-        req.getRequestDispatcher("/WEB-INF/blog-list.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/admin-blog-list.jsp").forward(req, resp);
     }
 }

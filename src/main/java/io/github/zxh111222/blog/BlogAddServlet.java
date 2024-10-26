@@ -10,6 +10,8 @@ import jakarta.servlet.http.Part;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,7 +27,8 @@ public class BlogAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
 
         // todo: 1. 接收用户数据、2.验证数据、3.处理数据（保存数据库）4.响应内容 ...
 
@@ -39,10 +42,22 @@ public class BlogAddServlet extends HttpServlet {
 
         // 处理文件上传 - start
         Part filePart = req.getPart("cover");
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        File uploadedFile = new File(uploadPath, fileName);
-        filePart.write(uploadedFile.getAbsolutePath());
-        String coverFileName = "uploads/" + fileName;
+        String coverFileName = null;
+
+        // 判断用户有没有上传封面图
+        if (filePart != null && filePart.getSize() > 0) {
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
+            // 检查 uploads 文件夹是否存在，如果不存在，自动创建
+            Path uploadsPath = Paths.get(uploadPath);
+            if (!Files.exists(uploadsPath)) {
+                Files.createDirectories(uploadsPath);
+            }
+
+            File uploadedFile = new File(uploadPath, fileName);
+            filePart.write(uploadedFile.getAbsolutePath());
+            coverFileName = "uploads/" + fileName;
+        }
         // 处理文件上传 - end
 
         Connection connection = MyDBUtil.getConnection();

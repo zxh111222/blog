@@ -3,11 +3,14 @@ package io.github.zxh111222.blog;
 import java.util.Objects;
 
 public class Blog {
-    int id;
-    String title;
-    String content;
-    String type;
-    String cover;
+    private int id;
+    private String title;
+    private String content;
+    private String type;
+    private String cover;
+
+    public Blog() {
+    }
 
     public Blog(String title, String content, String type) {
         this.title = title;

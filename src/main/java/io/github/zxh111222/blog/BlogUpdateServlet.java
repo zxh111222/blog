@@ -9,6 +9,8 @@ import jakarta.servlet.http.Part;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +23,7 @@ public class BlogUpdateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 接收参数
         String id = req.getParameter("id");
+
         // 根据 id，从数据库获取匹配的用户信息
         Connection connection = MyDBUtil.getConnection();
         String sql = "SELECT id, title, content, type, cover FROM blog WHERE id=?";
@@ -45,13 +48,17 @@ public class BlogUpdateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
+
 
         // 接收用户输入的内容
         String id = req.getParameter("id");
         String title = req.getParameter("title");
         String content = req.getParameter("content");
         String type = req.getParameter("type");
+        Part coverPart = req.getPart("cover");
+
 
 
         // 要上传到哪里
@@ -60,10 +67,22 @@ public class BlogUpdateServlet extends HttpServlet {
 
         // 处理文件上传 - start
         Part filePart = req.getPart("cover");
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        File uploadedFile = new File(uploadPath, fileName);
-        filePart.write(uploadedFile.getAbsolutePath());
-        String coverFileName = "uploads/" + fileName;
+        String coverFileName = null;
+
+        // 判断用户有没有上传封面图
+        if (filePart != null && filePart.getSize() > 0) {
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
+            // 检查 uploads 文件夹是否存在，如果不存在，自动创建
+            Path uploadsPath = Paths.get(uploadPath);
+            if (!Files.exists(uploadsPath)) {
+                Files.createDirectories(uploadsPath);
+            }
+
+            File uploadedFile = new File(uploadPath, fileName);
+            filePart.write(uploadedFile.getAbsolutePath());
+            coverFileName = "uploads/" + fileName;
+        }
         // 处理文件上传 - end
 
 
@@ -71,13 +90,24 @@ public class BlogUpdateServlet extends HttpServlet {
 
         // 保存到数据库
         Connection connection = MyDBUtil.getConnection();
-        String sql = "UPDATE blog set title=?, content=?, type=?, cover=? where id=?";
+        String sql;
+        if (coverFileName != null) {
+            sql = "UPDATE blog SET title=?, content=?, type=?, cover=? WHERE id=?";
+        } else {
+            sql = "UPDATE blog SET title=?, content=?, type=? WHERE id=?";
+        }
+
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, title);
             pstmt.setString(2, content);
             pstmt.setString(3, type);
-            pstmt.setString(4, coverFileName);
-            pstmt.setString(5, id);
+
+            if (coverFileName != null) {
+                pstmt.setString(4, coverFileName);
+                pstmt.setString(5, id);
+            } else {
+                pstmt.setString(4, id);
+            }
 
             int affectedRows = pstmt.executeUpdate();
 
@@ -89,5 +119,6 @@ public class BlogUpdateServlet extends HttpServlet {
         } catch (SQLException e) {
             resp.getWriter().println("修改博客时发生错误: " + e.getMessage());
         }
+
     }
 }
