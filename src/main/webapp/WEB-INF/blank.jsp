@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored ="false" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ include file="../partials/_start.jsp" %>
+<%@ include file="partials/_start.jsp" %>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -64,4 +64,4 @@
 
 
 
-<%@ include file="../partials/_end.jsp" %>
+<%@ include file="partials/_end.jsp" %>
