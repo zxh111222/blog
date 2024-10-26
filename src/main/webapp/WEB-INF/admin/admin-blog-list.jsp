@@ -40,7 +40,12 @@
         <h3 class="card-title">博客列表</h3>
 
         <div class="card-tools">
-          <form action="admin-blog-list" method="get" class="input-group input-group-sm" style="width: 380px;">
+          <form action="admin-blog-list" method="get" class="input-group input-group-sm" style="width: 510px;">
+            <div class="input-group-append">
+              <a href="<%= request.getContextPath() %>/blog-list" class="btn btn-default" style="width: 100px; margin: 0 15px;">
+                详细页面
+              </a>
+            </div>
             <input type="text" name="title"  value="${searchString}" class="form-control float-right" placeholder="Search">
 
             <div class="input-group-append">

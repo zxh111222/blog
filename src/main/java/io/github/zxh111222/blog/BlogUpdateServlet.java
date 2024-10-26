@@ -36,7 +36,7 @@ public class BlogUpdateServlet extends HttpServlet {
                 Blog blog = new Blog(Integer.parseInt(id), rs.getString("title"), rs.getString("content"), rs.getString("type"), rs.getString("cover"));
                 // 响应
                 req.setAttribute("blog", blog);
-                req.getRequestDispatcher("/WEB-INF/update-blog.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/admin/update-blog.jsp").forward(req, resp);
             } else {
                 resp.setContentType("text/html");
                 resp.getWriter().println("id="+ id +" 的博客不存在");

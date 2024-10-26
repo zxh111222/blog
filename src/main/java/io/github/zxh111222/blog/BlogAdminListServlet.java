@@ -94,6 +94,6 @@ public class BlogAdminListServlet extends HttpServlet {
 
         req.setAttribute("page", page);
 
-        req.getRequestDispatcher("/WEB-INF/admin-blog-list.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/admin/admin-blog-list.jsp").forward(req, resp);
     }
 }

@@ -22,7 +22,7 @@ import java.sql.SQLException;
 public class BlogAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/add-blog.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/admin/add-blog.jsp").forward(req, resp);
     }
 
     @Override

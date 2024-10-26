@@ -12,10 +12,11 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(String title, String content, String type) {
+    public Blog(int id, String title, String content, String cover) {
+        this.id = id;
         this.title = title;
         this.content = content;
-        this.type = type;
+        this.type = cover;
     }
 
     public Blog(int id, String title, String content, String type, String cover) {
