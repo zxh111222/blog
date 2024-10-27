@@ -107,7 +107,7 @@
           <div class="col-sm-12 col-md-7">
             <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
               <ul class="pagination">
-                <li class="paginate_button page-item previous" id="example2_previous"><a href="?page=${page - 1}${searchString != null ? "&title=".concat(searchString) : ""}"
+                <li class="paginate_button page-item previous" id="example2_previous"><a href="admin-blog-list?page=${page - 1}${searchString != null ? "&title=".concat(searchString) : ""}"
                                                                                                   aria-controls="example2"
                                                                                                   class="page-link">Previous</a>
                 </li>
@@ -123,8 +123,8 @@
                                                           tabindex="0" class="page-link">5</a></li>
                 <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="6"
                                                           tabindex="0" class="page-link">6</a></li>
-                <li class="paginate_button page-item next" id="example2_next"><a href="?page=${page + 1}${searchString != null ? "&title=".concat(searchString) : ""}" aria-controls="example2"
-                                                                                 data-dt-idx="7" tabindex="0"
+                <li class="paginate_button page-item next" id="example2_next"><a href="admin-blog-list?page=${page + 1}${searchString != null ? "&title=".concat(searchString) : ""}"
+                                                                                 aria-controls="example2"
                                                                                  class="page-link">Next</a></li>
               </ul>
             </div>
