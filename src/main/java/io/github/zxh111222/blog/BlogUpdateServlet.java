@@ -1,6 +1,7 @@
 package io.github.zxh111222.blog;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,8 +17,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Enumeration;
 
 @WebServlet("/admin-update-blog")
+@MultipartConfig
 public class BlogUpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -51,15 +54,12 @@ public class BlogUpdateServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset=UTF-8");
 
-
         // 接收用户输入的内容
         String id = req.getParameter("id");
         String title = req.getParameter("title");
         String content = req.getParameter("content");
         String type = req.getParameter("type");
-        Part coverPart = req.getPart("cover");
 
-        System.out.println("ID" + id);
 
         // 要上传到哪里
         //String uploadPath = Paths.get(System.getProperty("user.home") + "/Desktop/blog/src/main/webapp/uploads").toAbsolutePath().toString();

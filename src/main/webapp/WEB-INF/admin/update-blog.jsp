@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="card-body">
-        <form id="update-blog-form" method="post" action="admin-update-blog?id=" enctype="multipart/form-data">
+        <form id="update-blog-form" method="post" action="admin-update-blog" enctype="multipart/form-data">
           <input type="hidden" name="id" value="${blog.id}">
           <div class="form-group">
             <label for="title">博客标题</label>
