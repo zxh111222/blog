@@ -109,8 +109,6 @@
               <ul class="pagination">
                 <li class="paginate_button page-item previous" id="example2_previous"><a href="?page=${page - 1}${searchString != null ? "&title=".concat(searchString) : ""}"
                                                                                                   aria-controls="example2"
-                                                                                                  data-dt-idx="0"
-                                                                                                  tabindex="0"
                                                                                                   class="page-link">Previous</a>
                 </li>
                 <li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1"

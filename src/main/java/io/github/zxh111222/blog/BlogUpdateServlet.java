@@ -59,7 +59,7 @@ public class BlogUpdateServlet extends HttpServlet {
         String type = req.getParameter("type");
         Part coverPart = req.getPart("cover");
 
-
+        System.out.println("ID" + id);
 
         // 要上传到哪里
         //String uploadPath = Paths.get(System.getProperty("user.home") + "/Desktop/blog/src/main/webapp/uploads").toAbsolutePath().toString();

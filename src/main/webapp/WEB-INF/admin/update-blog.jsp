@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="card-body">
-        <form id="update-blog-form" method="post" action="admin-update-blog" enctype="multipart/form-data">
+        <form id="update-blog-form" method="post" action="admin-update-blog?id=" enctype="multipart/form-data">
           <input type="hidden" name="id" value="${blog.id}">
           <div class="form-group">
             <label for="title">博客标题</label>
@@ -58,9 +58,21 @@
           <div class="form-group">
             <label for="type">博客类型</label>
             <select id="type" class="form-control custom-select" name="type">
-              <option value="技术" selected>技术</option>
-              <option value="生活">生活</option>
-              <option value="思考">思考</option>
+              <option value="${blog.type}" selected>${blog.type}</option>
+              <c:choose>
+                <c:when test="${blog.type== '技术'}">
+                  <option value="生活">生活</option>
+                  <option value="思考">思考</option>
+                </c:when>
+                <c:when test="${blog.type== '生活'}">
+                  <option value="技术">技术</option>
+                  <option value="思考">思考</option>
+                </c:when>
+                <c:when test="${blog.type== '思考'}">
+                  <option value="技术">技术</option>
+                  <option value="生活">生活</option>
+                </c:when>
+              </c:choose>
             </select>
           </div>
           <div class="form-group">
