@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="vendor/adminlte-3.2.0/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="vendor/adminlte-3.2.0/dist/css/adminlte.min.css">
+    <%-- EasyMDE --%>
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Markdown2Html</title>
+    <!-- EasyMDE -->
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+</head>
+<body>
+<textarea id="markdown-string" cols="30" rows="10">
+## 回顾
+见上次课的笔记
+
+## 自动化检查三个 og 开头的标签
+改进上次课写的工具类，增加优化提醒等...
+- 错误：叉叉
+- 警告：三角形
+
+## 课后作业解答
+### 思路
+放胆去想
+
+### 实现
+把自己的想法变成代码
+</textarea>
+<hr>
+<button onclick="parse();">解析</button>
+<hr>
+<div id="parsed-html">这里显示解析之后的内容</div>
+<div>
+
+</div>
+
+<script>
+    function parse() {
+        var easyMDE = new EasyMDE({ element: document.getElementById('markdown-string') });
+        var text = document.getElementById("markdown-string").value;
+        // var markdownText = easyMDE.value();
+        var parsedHtml = easyMDE.markdown(text);
+        document.getElementById("parsed-html").innerHTML = parsedHtml;
+        easyMDE.toTextArea();
+        easyMDE = null;
+    }
+</script>
+</body>
+</html>

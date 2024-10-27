@@ -24,6 +24,22 @@
 </div>
 <!-- ./wrapper -->
 
+<script>
+    const easyMDE = new EasyMDE({
+        element: document.getElementById("editor"),
+        spellChecker: false // 禁用拼写检查
+    });
+
+    // 实时预览
+    easyMDE.codemirror.on("change", function() {
+        const markdownContent = easyMDE.value();
+        document.getElementById('preview').innerHTML = easyMDE.options.previewRender(markdownContent);
+    });
+</script>
+
+
+<!-- EasyMDE -->
+<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
 <!-- jQuery -->
 <script src="vendor/adminlte-3.2.0/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
