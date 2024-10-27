@@ -24,22 +24,40 @@
 </div>
 <!-- ./wrapper -->
 
+<style>
+    .cherry.fullscreen {
+        z-index: 1050 !important;
+    }
+</style>
+
 <script>
-    const easyMDE = new EasyMDE({
-        element: document.getElementById("editor"),
-        spellChecker: false // 禁用拼写检查
+
+    new Cherry({
+        id: 'markdown-container',
+        value: '',
+        toolbars: {
+            // 定义顶部工具栏
+            toolbar: ['bold','italic','strikethrough','|','color','header','ruby','|','list','panel','detail'],
+            // 定义侧边栏，默认为空
+            sidebar: ['theme'],
+            // 定义顶部右侧工具栏，默认为空
+            toolbarRight: ['fullScreen', 'export'],
+            // 定义选中文字时弹出的“悬浮工具栏”，默认为 ['bold', 'italic', 'underline', 'strikethrough', 'sub', 'sup', 'quote', '|', 'size', 'color']
+            bubble: false,
+            // 定义光标出现在行首位置时出现的“提示工具栏”，默认为 ['h1', 'h2', 'h3', '|', 'checklist', 'quote', 'table', 'code']
+            float: false,
+        },
+        callback: {
+            afterChange: (text, html) => {
+                document.getElementById('content').value = text;
+            }
+        },
+
     });
 
-    // 实时预览
-    easyMDE.codemirror.on("change", function() {
-        const markdownContent = easyMDE.value();
-        document.getElementById('preview').innerHTML = easyMDE.options.previewRender(markdownContent);
-    });
 </script>
 
 
-<!-- EasyMDE -->
-<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
 <!-- jQuery -->
 <script src="vendor/adminlte-3.2.0/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

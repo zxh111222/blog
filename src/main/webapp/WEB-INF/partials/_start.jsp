@@ -30,7 +30,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${title == null ? "ZXinhao" : title.concat(" - ZXinhao")}</title>
-    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap-5.3.3/bootstrap.min.css">
     <link rel="stylesheet" href="css/base.css">
     <!-- 提供 description 和 keywords 这两个基础的元信息，有利于 SEO -->
     <meta name="description" content="${seoDescription != null ? seoDescription : "记录零散的所思所想"}">

@@ -6,6 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script src="vendor/bootstrap/bootstrap.min.js"></script>
+<script src="vendor/bootstrap-5.3.3/bootstrap.min.js"></script>
 </body>
 </html>

@@ -16,16 +16,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AdminLTE 3 | Blank Page</title>
 
-    <base href="<%=request.getContextPath() %>/" >
-
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="vendor/adminlte-3.2.0/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="vendor/adminlte-3.2.0/dist/css/adminlte.min.css">
-    <%-- EasyMDE --%>
-    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+    <!-- 在 head 部分添加 cherry-markdown 的 CSS 和 JS 文件 -->
+    <link rel="stylesheet" href="vendor/cherry-markdown-0.8.49/dist/cherry-markdown.min.css">
+    <script src="vendor/cherry-markdown-0.8.49/dist/cherry-markdown.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->

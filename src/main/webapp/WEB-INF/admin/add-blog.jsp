@@ -53,7 +53,8 @@
             </div>
             <div class="form-group">
               <label for="content">博客内容</label>
-              <textarea id="content" class="form-control" rows="20" name="content" required></textarea>
+              <textarea id="content" class="form-control" rows="20" name="content" style="display: none" required></textarea>
+              <div id="markdown-container" style="height:600px"></div>
             </div>
             <div class="form-group">
               <label for="type">博客类型</label>
@@ -79,6 +80,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
 
 
 <%@ include file="partials/_end.jsp" %>
