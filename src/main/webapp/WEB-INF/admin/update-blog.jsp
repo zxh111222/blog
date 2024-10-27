@@ -58,19 +58,21 @@
           <div class="form-group">
             <label for="type">博客类型</label>
             <select id="type" class="form-control custom-select" name="type">
-              <option value="${blog.type}" selected>${blog.type}</option>
               <c:choose>
                 <c:when test="${blog.type== '技术'}">
+                  <option value="${blog.type}" selected>${blog.type}</option>
                   <option value="生活">生活</option>
                   <option value="思考">思考</option>
                 </c:when>
                 <c:when test="${blog.type== '生活'}">
                   <option value="技术">技术</option>
+                  <option value="${blog.type}" selected>${blog.type}</option>
                   <option value="思考">思考</option>
                 </c:when>
                 <c:when test="${blog.type== '思考'}">
                   <option value="技术">技术</option>
                   <option value="生活">生活</option>
+                  <option value="${blog.type}" selected>${blog.type}</option>
                 </c:when>
               </c:choose>
             </select>

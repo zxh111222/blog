@@ -9,28 +9,22 @@
 <%@ page isELIgnored ="false" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
-<html>
-<head>
-  <title>Title</title>
-  <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
-</head>
-<body>
+<%@ include file="partials/_start.jsp" %>
 
 <main class="container mt-5">
   <div class="row">
-    <div class="col-lg-8 mx-auto">
+    <div class="col mx-auto">
       <article>
         <h1 class="mb-4">${blog.title}</h1>
         <div class="blog-content">
           ${blog.content}
         </div>
       </article>
-      <div class="mt-5">
+      <div class="my-5">
         <a href="blog-list" class="btn btn-primary">返回博客列表</a>
       </div>
     </div>
   </div>
 </main>
 
-</body>
-</html>
+<%@ include file="partials/_end.jsp" %>

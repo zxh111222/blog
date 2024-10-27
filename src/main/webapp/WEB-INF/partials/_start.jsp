@@ -29,8 +29,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>${title == null ? "Yeah" : title.concat(" - Yeah")}</title>
-    <link rel="stylesheet" href="vendor/bootstrap-5.3.3/bootstrap.min.css">
+    <title>${title == null ? "ZXinhao" : title.concat(" - ZXinhao")}</title>
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/base.css">
     <!-- 提供 description 和 keywords 这两个基础的元信息，有利于 SEO -->
     <meta name="description" content="${seoDescription != null ? seoDescription : "记录零散的所思所想"}">
@@ -43,7 +43,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light navbar-glass py-2">
     <div class="container">
-        <a class="navbar-brand fw-medium" href="<%= request.getContextPath() + "/" %>">Yeah</a>
+        <a class="navbar-brand fw-medium" href="<%= request.getContextPath() + "/" %>">ZXinhao</a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

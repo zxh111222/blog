@@ -8,12 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored ="false" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<html>
-<head>
-  <title>Title</title>
-  <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
-</head>
-<body>
+
+<%@ include file="partials/_start.jsp" %>
 
 <main class="container mt-5">
   <div class="row g-4">
@@ -39,5 +35,4 @@
   </div>
 </main>
 
-</body>
-</html>
+<%@ include file="partials/_end.jsp" %>
