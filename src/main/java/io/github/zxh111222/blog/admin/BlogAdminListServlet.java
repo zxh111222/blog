@@ -1,5 +1,7 @@
-package io.github.zxh111222.blog;
+package io.github.zxh111222.blog.admin;
 
+import io.github.zxh111222.blog.Blog;
+import io.github.zxh111222.blog.util.MyDBUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

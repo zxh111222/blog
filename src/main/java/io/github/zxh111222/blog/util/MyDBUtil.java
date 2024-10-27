@@ -1,4 +1,4 @@
-package io.github.zxh111222.blog;
+package io.github.zxh111222.blog.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

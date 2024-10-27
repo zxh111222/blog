@@ -1,4 +1,4 @@
-package io.github.zxh111222.blog;
+package io.github.zxh111222.blog.admin;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
