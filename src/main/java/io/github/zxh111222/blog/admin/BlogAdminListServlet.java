@@ -18,85 +18,83 @@ import java.util.List;
 
 @WebServlet("/admin-blog-list")
 public class BlogAdminListServlet extends HttpServlet {
+    private static final int PAGE_SIZE = 10; // 每页显示10条
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Blog> blogs = new ArrayList<>();
+        // 获取搜索参数
+        String search = req.getParameter("search");
+        req.setAttribute("search", search); // 传递给JSP用于显示
 
-        int page = 1;
-        String pageFromRequest = req.getParameter("page");
-        if (pageFromRequest != null) {
-            try {
-                page = Integer.parseInt(pageFromRequest);
-            } catch (NumberFormatException e) {
-                System.out.println("非法的 page 值（非整数）：" + pageFromRequest);
+        // 获取当前页码
+        int currentPage = 1;
+        try {
+            String pageStr = req.getParameter("page");
+            if (pageStr != null) {
+                currentPage = Integer.parseInt(pageStr);
+                if (currentPage < 1) currentPage = 1;
             }
-            if (page < 1) {
-                System.out.println("非法的 page 值（小于 1）：" + pageFromRequest);
-                page = 1;
-            }
+        } catch (NumberFormatException e) {
+            currentPage = 1;
         }
 
-        int count = 10;
-        String countFromRequest = req.getParameter("count");
-        if (countFromRequest != null) {
-            try {
-                count = Integer.parseInt(countFromRequest);
-            } catch (NumberFormatException e) {
-                System.out.println("非法的 count 值（非整数）：" + countFromRequest);
+        try (Connection conn = MyDBUtil.getConnection()) {
+            // 准备SQL语句
+            String whereClause = "";
+            String countSql = "SELECT COUNT(*) FROM blog";
+            String selectSql = "SELECT id, title, type FROM blog";
+
+            if (search != null && !search.trim().isEmpty()) {
+                whereClause = " WHERE title LIKE ?";
+                countSql += whereClause;
+                selectSql += whereClause;
             }
-            if (count > 50) {
-                System.out.println("非法的 count 值（大于 50）：" + countFromRequest);
-                count = 50;
-            }
-        }
+            selectSql += " ORDER BY id DESC LIMIT ? OFFSET ?";
 
-        int offset = (page - 1) * count;
-
-        String sql = "select id, title, content, type, cover from blog order by id desc limit ?, ?";
-        String searchString = req.getParameter("title");
-        if (searchString != null && !searchString.trim().isEmpty()) {
-            sql = "select id, title, content, type, cover from blog where title like ? order by id desc limit ?, ?";
-        }
-
-
-
-        try (
-                Connection connection = MyDBUtil.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)
-        ) {
-
-            if (searchString != null && !searchString.trim().isEmpty()) {
-                preparedStatement.setString(1, "%" + searchString + "%");
-                preparedStatement.setInt(2, offset);
-                preparedStatement.setInt(3, count);
-                req.setAttribute("searchString", searchString);
-            } else {
-                preparedStatement.setInt(1, offset);
-                preparedStatement.setInt(2, count);
+            // 获取总记录数
+            int totalRecords = 0;
+            try (PreparedStatement countStmt = conn.prepareStatement(countSql)) {
+                if (!whereClause.isEmpty()) {
+                    countStmt.setString(1, "%" + search + "%");
+                }
+                ResultSet countRs = countStmt.executeQuery();
+                if (countRs.next()) {
+                    totalRecords = countRs.getInt(1);
+                }
             }
 
-            // 获取结果
-            ResultSet rs = preparedStatement.executeQuery();
-            // 构造出Blog实例
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String title = rs.getString("title");
-                String content = rs.getString("content");
-                String type = rs.getString("type");
-                String cover = rs.getString("cover");
-                // 构造出Blog实例
-                Blog blog = new Blog(id, title, content, type, cover);
-                // 添加到 blogs
-                blogs.add(blog);
+            // 计算总页数
+            int totalPages = (int) Math.ceil((double) totalRecords / PAGE_SIZE);
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            // 获取当前页的数据
+            List<Blog> blogs = new ArrayList<>();
+            try (PreparedStatement stmt = conn.prepareStatement(selectSql)) {
+                int paramIndex = 1;
+                if (!whereClause.isEmpty()) {
+                    stmt.setString(paramIndex++, "%" + search + "%");
+                }
+                stmt.setInt(paramIndex++, PAGE_SIZE);
+                stmt.setInt(paramIndex, (currentPage - 1) * PAGE_SIZE);
+
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    Blog blog = new Blog();
+                    blog.setId(rs.getInt("id"));
+                    blog.setTitle(rs.getString("title"));
+                    blog.setType(rs.getString("type"));
+                    blogs.add(blog);
+                }
             }
+// 设置分页相关属性
+            req.setAttribute("blogs", blogs);
+            req.setAttribute("currentPage", currentPage);
+            req.setAttribute("totalPages", totalPages);
+            req.setAttribute("totalRecords", totalRecords);
+
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new ServletException("获取博客列表失败", e);
         }
-
-        req.setAttribute("blogs", blogs);
-
-        req.setAttribute("page", page);
-
         req.getRequestDispatcher("/WEB-INF/admin/admin-blog-list.jsp").forward(req, resp);
     }
 }
