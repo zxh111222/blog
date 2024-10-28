@@ -32,6 +32,9 @@
     <title>${title == null ? "ZXinhao" : title.concat(" - ZXinhao")}</title>
     <link rel="stylesheet" href="vendor/bootstrap-5.3.3/bootstrap.min.css">
     <link rel="stylesheet" href="css/base.css">
+    <!-- 在 head 部分添加 cherry-markdown 的 CSS 和 JS 文件 -->
+    <link rel="stylesheet" href="vendor/cherry-markdown-0.8.49/dist/cherry-markdown.min.css">
+    <script src="vendor/cherry-markdown-0.8.49/dist/cherry-markdown.min.js"></script>
     <!-- 提供 description 和 keywords 这两个基础的元信息，有利于 SEO -->
     <meta name="description" content="${seoDescription != null ? seoDescription : "记录零散的所思所想"}">
     <meta name="keywords" content="${seoKeywords != null ? seoKeywords : "Java,博客,Blog"}">

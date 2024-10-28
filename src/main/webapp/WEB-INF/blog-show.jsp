@@ -16,8 +16,8 @@
     <div class="col mx-auto">
       <article>
         <h1 class="mb-4">${blog.title}</h1>
-        <div class="blog-content">
-          ${blog.content}
+        <div id="blog-content" class="blog-content">
+          <!-- 这里将由 JavaScript 填充解析后的 HTML 内容 -->
         </div>
       </article>
       <div class="my-5">
@@ -26,5 +26,25 @@
     </div>
   </div>
 </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 创建Cherry实例，使用纯预览模式
+    const cherry = new Cherry({
+      id: 'blog-content',
+      value: `${blog.content}`,
+      editor: {
+        defaultModel: 'previewOnly',
+      },
+      toolbars: {
+        // 打开侧边目录
+        toc: {
+          updateLocationHash: false, // 不更新URL的hash
+          defaultModel: 'full', // 完整模式，展示所有标题
+        },
+      }
+    });
+  });
+</script>
 
 <%@ include file="partials/_end.jsp" %>
