@@ -30,52 +30,7 @@
     }
 </style>
 
-<script>
 
-    new Cherry({
-        id: 'markdown-container',
-        value: '',
-        toolbars: {
-            // 定义顶部工具栏
-            toolbar: ['bold','italic','strikethrough','|','color','header','ruby','|','list','panel','detail'],
-            // 定义侧边栏，默认为空
-            sidebar: ['theme'],
-            // 定义顶部右侧工具栏，默认为空
-            toolbarRight: ['fullScreen', 'export'],
-            // 定义选中文字时弹出的“悬浮工具栏”，默认为 ['bold', 'italic', 'underline', 'strikethrough', 'sub', 'sup', 'quote', '|', 'size', 'color']
-            bubble: false,
-            // 定义光标出现在行首位置时出现的“提示工具栏”，默认为 ['h1', 'h2', 'h3', '|', 'checklist', 'quote', 'table', 'code']
-            float: false,
-        },
-        callback: {
-            afterChange: (text, html) => {
-                document.getElementById('content').value = text;
-            }
-        },
-        fileUpload: (file, callback) => {
-            const formData = new FormData();
-            formData.append('image', file);
-            fetch('<%=request.getContextPath()%>/upload-image', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        callback(data.file.url);
-                    } else {
-                        console.error('图片上传失败:', data.message);
-                        alert('图片上传失败: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('图片上传出错:', error);
-                    alert('图片上传出错，请稍后重试');
-                });
-        },
-    });
-
-</script>
 
 
 <!-- jQuery -->
