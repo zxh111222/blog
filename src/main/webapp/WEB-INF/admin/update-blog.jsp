@@ -56,7 +56,7 @@
           </div>
           <div class="form-group">
             <label for="content">博客内容</label>
-            <textarea id="content" class="form-control" rows="20" name="content" style="display: none" required></textarea>
+            <textarea id="content" class="form-control" rows="20" name="content" style="display: none" required>${blog.content}</textarea>
             <div id="markdown-container" style="height:600px"></div>
           </div>
           <div class="form-group">
@@ -100,9 +100,11 @@
 
 <script>
 
+  var content = document.getElementById("content").value;
+
   new Cherry({
     id: 'markdown-container',
-    value: '',
+    value: content,
     toolbars: {
       // 定义顶部工具栏
       toolbar: ['bold','italic','strikethrough','|','color','header','ruby','|','list','panel','detail'],
