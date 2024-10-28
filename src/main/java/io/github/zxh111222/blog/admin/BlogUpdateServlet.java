@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 @WebServlet("/admin-update-blog")
 @MultipartConfig
@@ -58,15 +59,7 @@ public class BlogUpdateServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset=UTF-8");
 
-        // 接收用户输入的内容
-        String id = req.getParameter("id");
-        String title = req.getParameter("title");
-        String content = req.getParameter("content");
-        String type = req.getParameter("type");
-
-
         // 要上传到哪里
-        //String uploadPath = Paths.get(System.getProperty("user.home") + "/Desktop/blog/src/main/webapp/uploads").toAbsolutePath().toString();
         String uploadPath = getServletContext().getRealPath("/") + "uploads";
 
         // 处理文件上传 - start
@@ -75,7 +68,14 @@ public class BlogUpdateServlet extends HttpServlet {
 
         // 判断用户有没有上传封面图
         if (filePart != null && filePart.getSize() > 0) {
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            // 获取原始文件名和扩展名
+            String originalFileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+
+            // 生成新的文件名：时间戳_UUID.扩展名
+            String newFileName = System.currentTimeMillis() + "_" +
+                    UUID.randomUUID().toString().substring(0, 8) +
+                    fileExtension;
 
             // 检查 uploads 文件夹是否存在，如果不存在，自动创建
             Path uploadsPath = Paths.get(uploadPath);
@@ -83,12 +83,28 @@ public class BlogUpdateServlet extends HttpServlet {
                 Files.createDirectories(uploadsPath);
             }
 
-            File uploadedFile = new File(uploadPath, fileName);
+            // 使用新文件名保存文件
+            File uploadedFile = new File(uploadPath, newFileName);
             filePart.write(uploadedFile.getAbsolutePath());
-            coverFileName = "uploads/" + fileName;
+            coverFileName = "uploads/" + newFileName;
+
+            // 如果是更新操作，删除旧的封面图
+            Blog oldBlog = getBlogById(Integer.parseInt(req.getParameter("id")));
+            if (oldBlog != null && oldBlog.getCover() != null) {
+                File oldCover = new File(getServletContext().getRealPath("/") + oldBlog.getCover());
+                if (oldCover.exists()) {
+                    oldCover.delete();
+                }
+            }
         }
         // 处理文件上传 - end
 
+
+        // 接收用户输入的内容
+        String id = req.getParameter("id");
+        String title = req.getParameter("title");
+        String content = req.getParameter("content");
+        String type = req.getParameter("type");
 
         // 验证用户的输入
 
@@ -127,4 +143,27 @@ public class BlogUpdateServlet extends HttpServlet {
         }
 
     }
+
+    private Blog getBlogById(int id) throws ServletException {
+        try (Connection conn = MyDBUtil.getConnection()) {
+            String sql = "SELECT id, title, content, cover FROM blog WHERE id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    Blog blog = new Blog();
+                    blog.setId(rs.getInt("id"));
+                    blog.setTitle(rs.getString("title"));
+                    blog.setContent(rs.getString("content"));
+                    blog.setCover(rs.getString("cover"));
+                    return blog;
+                }
+            }
+        } catch (SQLException e) {
+            throw new ServletException("获取博客信息失败", e);
+        }
+        return null;
+    }
+
 }

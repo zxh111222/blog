@@ -100,11 +100,9 @@
 
 <script>
 
-  var content = document.getElementById("content").value;
-
   new Cherry({
     id: 'markdown-container',
-    value: content,
+    value: `${blog.content}`,
     toolbars: {
       // 定义顶部工具栏
       toolbar: ['bold','italic','strikethrough','|','color','header','ruby','|','list','panel','detail'],
