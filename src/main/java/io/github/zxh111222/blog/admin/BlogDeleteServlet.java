@@ -20,9 +20,12 @@ public class BlogDeleteServlet extends HttpServlet {
 
         String id = req.getParameter("id");
 
-        Connection connection = MyDBUtil.getConnection();
+
         String sql = "DELETE FROM blog WHERE id = ?";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        try (
+                Connection connection = MyDBUtil.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(sql)
+        ) {
             pstmt.setString(1, id);
 
             int affectedRows = pstmt.executeUpdate();

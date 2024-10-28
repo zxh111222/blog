@@ -58,9 +58,10 @@ public class BlogAdminListServlet extends HttpServlet {
             sql = "select id, title, content, type, cover from blog where title like ? order by id desc limit ?, ?";
         }
 
-        Connection connection = MyDBUtil.getConnection();
+
 
         try (
+                Connection connection = MyDBUtil.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
 

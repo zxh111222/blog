@@ -37,9 +37,12 @@ public class BlogShowServlet extends HttpServlet {
     }
 
     private Blog getBlogById(int id) throws SQLException {
-        Connection conn = MyDBUtil.getConnection();
+
         String sql = "SELECT * FROM blog WHERE id = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (
+                Connection conn = MyDBUtil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)
+        ) {
             pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {

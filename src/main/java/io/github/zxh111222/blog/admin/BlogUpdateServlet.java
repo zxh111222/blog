@@ -29,9 +29,12 @@ public class BlogUpdateServlet extends HttpServlet {
         String id = req.getParameter("id");
 
         // 根据 id，从数据库获取匹配的用户信息
-        Connection connection = MyDBUtil.getConnection();
+
         String sql = "SELECT id, title, content, type, cover FROM blog WHERE id=?";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        try (
+                Connection connection = MyDBUtil.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(sql)
+        ) {
             pstmt.setString(1, id);
 
             ResultSet rs = pstmt.executeQuery();
@@ -90,7 +93,6 @@ public class BlogUpdateServlet extends HttpServlet {
         // 验证用户的输入
 
         // 保存到数据库
-        Connection connection = MyDBUtil.getConnection();
         String sql;
         if (coverFileName != null) {
             sql = "UPDATE blog SET title=?, content=?, type=?, cover=? WHERE id=?";
@@ -98,7 +100,10 @@ public class BlogUpdateServlet extends HttpServlet {
             sql = "UPDATE blog SET title=?, content=?, type=? WHERE id=?";
         }
 
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        try (
+                Connection connection = MyDBUtil.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(sql)
+        ) {
             pstmt.setString(1, title);
             pstmt.setString(2, content);
             pstmt.setString(3, type);

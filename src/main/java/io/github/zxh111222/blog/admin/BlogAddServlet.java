@@ -61,11 +61,11 @@ public class BlogAddServlet extends HttpServlet {
         }
         // 处理文件上传 - end
 
-        Connection connection = MyDBUtil.getConnection();
         String sql = "INSERT INTO blog (title, content, type, cover) VALUES (?, ?, ?, ?)";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
+        try(
+                Connection connection = MyDBUtil.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(sql)
+        ){
             pstmt.setString(1, title);
             pstmt.setString(2, content);
             pstmt.setString(3, type);
@@ -81,16 +81,6 @@ public class BlogAddServlet extends HttpServlet {
             }
         } catch (SQLException e) {
             resp.getWriter().println("添加博客时发生错误: " + e.getMessage());
-        } finally {
-            // 关闭资源
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
-
     }
 }

@@ -20,12 +20,12 @@ public class BlogListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ArrayList<Blog> blogs = new ArrayList<>();
 
-        // 连接数据库
-        Connection connection = MyDBUtil.getConnection();
-        // 发送查询语句，
         String sql = "select id, title, content, cover from blog order by id desc";
 
         try (
+                // 连接数据库
+                Connection connection = MyDBUtil.getConnection();
+                // 发送查询语句，
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
             // 获取结果
