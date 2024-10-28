@@ -11,6 +11,37 @@
 
 <%@ include file="partials/_start.jsp" %>
 
+<style>
+  /* 覆盖1: border-left */
+  .cherry-previewer {
+    border-left: none;
+  }
+
+  /* 覆盖2: box-shadow */
+  /*.cherry {
+      box-shadow: none;
+  }*/
+
+  /* 覆盖3: background-color */
+  /*.cherry {
+      background: none;
+  }
+  .cherry-previewer {
+      background-color: unset;
+  }
+  .cherry-markdown.theme__light {
+      background-color: unset;
+  }
+  .cherry.theme__light .cherry-previewer {
+      background-color: unset;
+  }*/
+
+  /* 覆盖4: a.anchor:before */
+  .cherry-markdown a.anchor:before {
+    content: "";
+  }
+</style>
+
 <main class="container mt-5">
   <div class="row">
     <div class="col mx-auto">
