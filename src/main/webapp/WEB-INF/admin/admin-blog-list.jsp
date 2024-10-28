@@ -40,7 +40,7 @@
         <h3 class="card-title">博客列表</h3>
 
         <div class="card-tools">
-          <form action="admin-blog-list" method="get" class="input-group input-group-sm" style="width: 510px;">
+          <form action="admin-blog-list" method="get" class="input-group input-group-sm" style="width: 560px;">
             <div class="input-group-append">
               <a href="<%= request.getContextPath() %>/blog-list" class="btn btn-default" style="width: 100px; margin: 0 15px;">
                 详细页面
@@ -52,8 +52,8 @@
               <button type="submit" class="btn btn-default">
                 <i class="fas fa-search"></i>
               </button>
-              <a href="<%= request.getContextPath() %>/admin-add-blog" class="btn btn-default" style="width: 100px; margin: 0 15px;">
-                添加博客
+              <a href="<%= request.getContextPath() %>/admin-add-blog" class="btn btn-default" style="width: 150px; margin: 0 15px;">
+                创建新博客
               </a>
             </div>
           </form>
@@ -88,8 +88,14 @@
                   <td>${blog.content}</td>
                   <td><span class="tag tag-success">${blog.type}</span></td>
                   <td style="display: flex;">
-                    <a href="admin-update-blog?id=${blog.id}" type="submit" class="btn btn-block btn-secondary btn-sm" style="width: 60px; height: 35px; margin: 0 5px">修改</a>
-                    <a href="admin-delete-blog?id=${blog.id}" type="submit" class="btn btn-block btn-secondary btn-sm" style="width: 60px; height: 35px; margin: 0 5px">删除</a>
+                    <a href="admin-update-blog?id=${blog.id}" class="text-sm">
+                      <i class="fas fa-edit"></i>
+                      Edit
+                    </a>
+                    <a href="admin-delete-blog?id=${blog.id}" class="text-sm pl-3">
+                      <i class="fas fa-trash"></i>
+                      Remove
+                    </a>
                   </td>
                 </tr>
               </c:forEach>
