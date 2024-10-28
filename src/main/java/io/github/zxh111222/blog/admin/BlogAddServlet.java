@@ -17,6 +17,7 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.UUID;
 
 @WebServlet("/admin-add-blog")
 @MultipartConfig
@@ -37,8 +38,13 @@ public class BlogAddServlet extends HttpServlet {
         String content = req.getParameter("content");
         String type = req.getParameter("type");
 
+        if (title == null || content == null ||
+                title.trim().isEmpty() || content.trim().isEmpty()) {
+            resp.sendRedirect(req.getContextPath() + "/admin-blog-list");
+            return;
+        }
+
         // 要上传到哪里
-        //String uploadPath = Paths.get(System.getProperty("user.home") + "/Desktop/blog/src/main/webapp/uploads").toAbsolutePath().toString();
         String uploadPath = getServletContext().getRealPath("/") + "uploads";
 
         // 处理文件上传 - start
@@ -47,7 +53,14 @@ public class BlogAddServlet extends HttpServlet {
 
         // 判断用户有没有上传封面图
         if (filePart != null && filePart.getSize() > 0) {
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            // 获取原始文件名和扩展名
+            String originalFileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+
+            // 生成新的文件名：时间戳_UUID.扩展名
+            String newFileName = System.currentTimeMillis() + "_" +
+                    UUID.randomUUID().toString().substring(0, 8) +
+                    fileExtension;
 
             // 检查 uploads 文件夹是否存在，如果不存在，自动创建
             Path uploadsPath = Paths.get(uploadPath);
@@ -55,9 +68,10 @@ public class BlogAddServlet extends HttpServlet {
                 Files.createDirectories(uploadsPath);
             }
 
-            File uploadedFile = new File(uploadPath, fileName);
+            // 使用新文件名保存文件
+            File uploadedFile = new File(uploadPath, newFileName);
             filePart.write(uploadedFile.getAbsolutePath());
-            coverFileName = "uploads/" + fileName;
+            coverFileName = "uploads/" + newFileName;
         }
         // 处理文件上传 - end
 
@@ -81,6 +95,13 @@ public class BlogAddServlet extends HttpServlet {
             }
         } catch (SQLException e) {
             resp.getWriter().println("添加博客时发生错误: " + e.getMessage());
+            // 如果添加失败，删除已上传的封面图
+            if (coverFileName != null) {
+                File uploadedFile = new File(getServletContext().getRealPath("/") + coverFileName);
+                if (uploadedFile.exists()) {
+                    uploadedFile.delete();
+                }
+            }
         }
     }
 }

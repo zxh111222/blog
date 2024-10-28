@@ -106,6 +106,12 @@ public class BlogUpdateServlet extends HttpServlet {
         String content = req.getParameter("content");
         String type = req.getParameter("type");
 
+        if (id == null || title == null || content == null ||
+                title.trim().isEmpty() || content.trim().isEmpty()) {
+            resp.sendRedirect(req.getContextPath() + "/admin-blog-list");
+            return;
+        }
+
         // 验证用户的输入
 
         // 保存到数据库
