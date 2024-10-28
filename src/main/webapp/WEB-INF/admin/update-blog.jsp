@@ -82,8 +82,17 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="cover">博客封面图</label>
+            <label for="cover">博客封面图（选填）</label>
+            <div class="mb-2">
+              <img src="${pageContext.request.contextPath}/${blog.cover}"
+                   alt="当前封面图" style="max-width: 200px; max-height: 200px;">
+            </div>
             <input type="file" class="d-block" id="cover" name="cover" accept="image/*">
+            <small class="form-text text-muted">
+              <c:if test="${not empty blog.cover}">
+                如果不想更改封面图，请不要选择新的图片
+              </c:if>
+            </small>
           </div>
         </form>
       </div>
@@ -97,6 +106,13 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<style>
+  /* 覆盖 Cherry Markdown 全屏模式的 z-index */
+  .cherry.fullscreen {
+    z-index: 1050 !important; /* 确保 z-index 足够大，覆盖其他元素 */
+  }
+</style>
 
 <script>
 
