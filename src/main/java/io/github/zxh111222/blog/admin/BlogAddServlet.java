@@ -32,8 +32,6 @@ public class BlogAddServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset=UTF-8");
 
-        // todo: 1. 接收用户数据、2.验证数据、3.处理数据（保存数据库）4.响应内容 ...
-
         String title = req.getParameter("title");
         String content = req.getParameter("content");
         String type = req.getParameter("type");

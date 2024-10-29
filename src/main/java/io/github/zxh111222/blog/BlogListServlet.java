@@ -20,7 +20,7 @@ public class BlogListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ArrayList<Blog> blogs = new ArrayList<>();
 
-        String sql = "select id, title, content, cover from blog order by id desc";
+        String sql = "select id, title, content, type, cover from blog order by id desc";
 
         try (
                 // 连接数据库
@@ -36,14 +36,16 @@ public class BlogListServlet extends HttpServlet {
                 String title = rs.getString("title");
                 String content = rs.getString("content");
                 String cover = rs.getString("cover");
+                String type = rs.getString("type");
                 // 构造出Blog实例
-                Blog blog = new Blog(id, title, content, cover);
+                Blog blog = new Blog(id, title, content, type, cover);
                 // 添加到 blogs
                 blogs.add(blog);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
 
         req.setAttribute("blogs", blogs);
 

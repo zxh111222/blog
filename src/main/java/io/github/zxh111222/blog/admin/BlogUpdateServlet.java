@@ -106,16 +106,12 @@ public class BlogUpdateServlet extends HttpServlet {
         String content = req.getParameter("content");
         String type = req.getParameter("type");
 
-        if (id == null || title == null || content == null ||
-                title.trim().isEmpty() || content.trim().isEmpty()) {
-            resp.sendRedirect(req.getContextPath() + "/admin-blog-list");
-            return;
-        }
 
         // 验证用户的输入
 
         // 保存到数据库
         String sql;
+        System.out.println(coverFileName);
         if (coverFileName != null) {
             sql = "UPDATE blog SET title=?, content=?, type=?, cover=? WHERE id=?";
         } else {
@@ -152,7 +148,7 @@ public class BlogUpdateServlet extends HttpServlet {
 
     private Blog getBlogById(int id) throws ServletException {
         try (Connection conn = MyDBUtil.getConnection()) {
-            String sql = "SELECT id, title, content, cover FROM blog WHERE id = ?";
+            String sql = "SELECT id, title, content, type, cover FROM blog WHERE id = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, id);
                 ResultSet rs = stmt.executeQuery();
@@ -162,6 +158,7 @@ public class BlogUpdateServlet extends HttpServlet {
                     blog.setId(rs.getInt("id"));
                     blog.setTitle(rs.getString("title"));
                     blog.setContent(rs.getString("content"));
+                    blog.setType(rs.getString("type"));
                     blog.setCover(rs.getString("cover"));
                     return blog;
                 }
